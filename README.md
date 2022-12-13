@@ -14,16 +14,30 @@ The inference.py will be called to perform batch inference by loading the two mo
 
 # build docker image
 
-    FROM ubuntu:latest
-    WORKDIR /app
-    RUN apt-get update -y
-    RUN apt-get install -y python3-pip python3-dev build-essential hdf5-tools libgl1 libgtk2.0-dev
-    COPY . /app
-    RUN pip3 install -r setup.txt
-    EXPOSE 8080
-    CMD ["python3", "my_api.py"]
+    FROM jupyter/scipy-notebook
+
+    RUN mkdir my-model
+    ENV MODEL_DIR=/home/jovyan/my-model
+    ENV MODEL_FILE_LDA=clf_lda.joblib
+    ENV MODEL_FILE_NN=clf_nn.joblib
+
+    RUN pip install joblib
+
+    COPY train.csv ./train.csv
+    COPY test.csv ./test.csv
+
+    COPY train.py ./train.py
+    COPY inference.py ./inference.py
+
+    RUN python3 train.py
 
 # deploy docker
+
+build docker image `$ sudo docker build -t <image_tag> -f <Dockerfile> .`
+
+run docker image `$ sudo docker run <image_tag>`
+
+run docker image with special command `$ sudo docker run <image_tag> python3 inference.py`
 
 # references
 
