@@ -1,0 +1,17 @@
+Linux-5.4.0-135-generic-x86_64-with-Ubuntu-18.04-bionic
+Python 3.6.9 (default, Nov 25 2022, 14:10:45) 
+[GCC 8.4.0]
+NumPy 1.19.5
+SciPy 1.5.4
+MODEL_FILE_LDA:  clf_lda.joblib
+MODEL_FILE_NN:  clf_nn.joblib
+Shape of the test data
+(1300, 160)
+(1300,)
+clf_lda.joblib
+LDA score and classification:
+0.6915384615384615
+[ 0  0  0 ... 25 25 25]
+NN score and classification:
+0.6615384615384615
+[ 0  0  0 ... 25 25 24]
