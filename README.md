@@ -17,6 +17,9 @@ The inference.py will be called to perform batch inference by loading the two mo
 - run train model: `python3 train.py`
 - run train model and log print out: `python train.py > log.txt`
 - run inference and log result: `python inference.py > inference.txt`
+- build image `sudo docker build -t app:0.1 .`
+- run container map-port and volume: `sudo docker run -p 8888:8888 -v $PWD:/app --name con app:0.1`
+- run container with specific command `sudo docker exec con python3 inference.py`
 
 # packages
 
@@ -31,15 +34,17 @@ The inference.py will be called to perform batch inference by loading the two mo
     WORKDIR /app
     RUN pip install joblib
     COPY . /app
-    RUN python3 train.py
+    RUN bash
 
 # deploy docker
 
-build docker image `$ sudo docker build -t <image_tag> -f <Dockerfile> .`
+build docker image `$ sudo docker build -t <image name>:<tag> -f <Dockerfile>`
 
-run docker image `$ sudo docker run <image_tag>`
+run docker container and mount to your floder `$ sudo docker run -p 8888:8888 -v $PWD:/app --name <container name> <image name>:<tag>`
 
-run docker image with special command `$ sudo docker run <image_tag> python3 inference.py`
+run docker image with special command `$ sudo docker exec <container name> python3 inference.py`
+
+**Note** [host]:[container]
 
 # references
 
